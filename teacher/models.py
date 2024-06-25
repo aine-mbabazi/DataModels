@@ -15,7 +15,8 @@ class Teacher(models.Model):
       department = models.CharField(max_length=20)
       bank_account_number = models.CharField(max_length = 16)
       course =  models.OneToOneRel()  
-      Class = models.ManyToOneRel()   
+      Class = models.ManyToOneRel()
+         
 
     
       def __str__(self):
