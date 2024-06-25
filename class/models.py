@@ -1,4 +1,5 @@
 from django.db import models
+from student.models import Student
 
 # Create your models here.
 class Class(models.Model):
@@ -12,6 +13,9 @@ class Class(models.Model):
       meeting_days = models.CharField(max_length=40)
       academic_year = models.PositiveSmallIntegerField()
       class_capacity = models.PositiveSmallIntegerField()
+
+      students = models.ManyToManyField(Student)
+      
 
     
       def __str__(self):
