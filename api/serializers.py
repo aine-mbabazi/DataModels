@@ -1,27 +1,27 @@
-from rest_framework import serializer
+from rest_framework import serializers
 
 from student.models import Student
-from classs.models import Class
+from classs.models import Classs
 from teacher.models import Teacher
 from course.models import Course
 
-class StudentSerializer(serializer.ModelSerializer):
+class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = "__all__"
 
 
-class CourseSerializer(serializer.ModelSerializer):
+class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = "__all__"
 
-class ClasssSerializer(serializer.ModelSerializer):
+class ClasssSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Class
+        model = Classs
         fields = "__all__"
 
-class TeacherSerializer(serializer.ModelSerializer):
+class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
         fields = "__all__"
