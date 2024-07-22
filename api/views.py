@@ -3,6 +3,7 @@ from rest_framework.views import APIView;
 from student.models import Student;
 from teacher.models import Teacher;
 from course.models import Course;
+from class_period.models import Class_period;
 from classs.models import Classs;
 from rest_framework import status;
 # from class_model.models import Classroom;
@@ -10,7 +11,7 @@ from .serializers import StudentSerializer;
 from .serializers import TeacherSerializer
 from .serializers import CourseSerializer; 
 from .serializers import ClasssSerializer;
-from .serializers import Class_periodListView
+from .serializers import Class_periodSerializer;
 
 # from .serializers import ClassPeriodSerializer;
 class StudentListView(APIView):

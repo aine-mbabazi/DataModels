@@ -4,7 +4,7 @@ from student.models import Student
 from classs.models import Classs
 from teacher.models import Teacher
 from course.models import Course
-from class_period import Class_period
+from class_period.models import Class_period
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
