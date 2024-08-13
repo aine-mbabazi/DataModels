@@ -88,7 +88,34 @@ class StudentDetailView(APIView):
         
         return Response(status=status.HTTP_201_CREATED)
     
-    def unenroll(self,Student,course_id)
+    def unenroll(self, student, course_id):
+        course = Course.objects.get(id=course_id)
+        student.courses.remove(course)
+        
+    def add_to_class(self, student, class_id):
+        student_class = Student.objects.get(id=class_id)
+        student_class.students.add(student)
+
+    def post(self, request, id):
+        student = Student.objects.get(id=id)
+        action = request.data.get("action")
+
+        if action == "enroll":
+            course_id = request.data.get("course_id")
+            self.enroll(student, course_id)
+            return Response(status=status.HTTP_201_CREATED)
+        
+        elif action == "unenroll":
+            course_id = request.data.get("course_id")
+            self.unenroll(student, course_id)
+            return Response(status=status.HTTP_200_OK)
+        
+        elif action == "add_to_class":
+            class_id = request.data.get("class_id")
+            self.add_to_class(student, class_id)
+            return Response(status=status.HTTP_201_CREATED)
+        else:
+         return Response(status=status.HTTP_400_BAD_REQUEST)
     
 
 class TeacherDetailView(APIView):
@@ -110,7 +137,25 @@ class TeacherDetailView(APIView):
     def delete(self,request,id):
         teacher = Teacher.objects.get(id=id)
         teacher.delete()
-        return Response(status=status.HTTP_202_ACCEPTED)
+        return Response(status=status.HTTP_202_ACCEPTED
+        )
+    
+
+    def assign_teacher_to_course(self, teacher_id, course_id):
+       
+        data = {
+            'teacher_id': teacher_id,
+            'course_id': course_id
+        }
+        return self.api_client.post('assign_teacher/course', data)
+
+    def assign_teacher_to_class(self, teacher_id, class_id):
+       
+        data = {
+            'teacher_id': teacher_id,
+            'class_id': class_id
+        }
+        return self.api_client.post('assign_teacher/class', data)
     
 
 class ClasssDetailView(APIView):
@@ -135,6 +180,15 @@ class ClasssDetailView(APIView):
         classs = Classs.objects.get(id=id)
         classs.delete()
         return Response(status=status.HTTP_202_ACCEPTED)
+    
+    def create_class_period(self, teacher_id, course_id, class_time):
+       
+        data = {
+            'teacher_id': teacher_id,
+            'course_id': course_id,
+            'class_time': class_time
+        }
+        return self.api_client.post('class_periods', data)
     
 
 class CourseDetailView(APIView):
