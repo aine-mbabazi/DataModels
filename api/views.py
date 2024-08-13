@@ -17,6 +17,9 @@ from .serializers import Class_periodSerializer;
 class StudentListView(APIView):
     def get(self, request):
         students = Student.objects.all()
+        first_name = request.query_params.get("first_name")
+        if first_name:
+            students = students.filter(first_name=first_name)
         serializer = StudentSerializer(students, many = True)
         return Response(serializer.data)
     
@@ -69,6 +72,23 @@ class StudentDetailView(APIView):
         student = Student.objects.get(id=id)
         student.delete()
         return Response(status=status.HTTP_202_ACCEPTED)
+    
+    def enroll(self, Student,course_id):
+        course = Course.objects.get(id=course_id)
+        Student.courses.add(course)
+    
+    def post(self,request,id):
+        student = Student.objects.get(id=id)
+        action = request.data.get("action")
+        if action =="enroll":
+            course_id = request.data.get(
+                "course_id"
+            )
+            self.enroll(Student,course_id)
+        
+        return Response(status=status.HTTP_201_CREATED)
+    
+    def unenroll(self,Student,course_id)
     
 
 class TeacherDetailView(APIView):

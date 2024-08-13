@@ -10,6 +10,7 @@ class Student(models.Model):
       country = models.CharField(max_length=20)
       date_of_birth = models.DateField()
       code = models.PositiveSmallIntegerField()
+      # courses = models.ManyToManyField(course)
     
       def __str__(self):
         return f"{self.first_name} {self.last_name}"
