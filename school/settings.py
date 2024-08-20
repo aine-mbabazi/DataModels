@@ -87,11 +87,15 @@ DATABASES = {
         "NAME": "mydatabase",
         "USER": "myuser",
         "PASSWORD": "mypassword",
-        "HOST": "127.0.0.1",
+        "HOST": "localhost",
         "PORT": "5432",
 
     }
+   
 }
+
+
+
 
 
 # Password validation
@@ -134,3 +138,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
