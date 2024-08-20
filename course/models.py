@@ -13,6 +13,7 @@ class Course(models.Model):
       course_capacity = models.PositiveSmallIntegerField()
       grade_level = models.CharField(max_length=15)
       school_term = models.PositiveSmallIntegerField()
+      school_name = models.CharField(max_length =20)
 
     
       def __str__(self):

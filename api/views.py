@@ -29,24 +29,7 @@ class StudentListView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# class StudentDetailView(APIView):
-#     def get(self, request, id):
-#         student = Student.objects.get(id=id)
-#         serializer = StudentDetailSerializer(student)
-#         return Response(serializer.data)
 
-#     def put(self, request, id):
-#         student = Student.objects.get(id=id)
-#         serializer = StudentDetailSerializer(student, data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_200_OK)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-#     def delete(self, request, id):
-#         student = Student.objects.get(id=id)
-#         student.delete()
-#         return Response(status=status.HTTP_204_NO_CONTENT)
     
 class StudentDetailView(APIView):
     def get(self, request, id):
@@ -82,10 +65,24 @@ class StudentDetailView(APIView):
 
 
 class TeacherListView(APIView):
+
+    # def get(self, request):
+    #     students = Teacher.objects.all()
+    #     first_name = request.query_params.get("first_name")
+    #     if first_name:
+    #         students = students.filter(first_name=first_name)
+    #     serializer = StudentMinimalSerializer(students, many=True)
+    #     return Response(serializer.data)
+  
+    
     def get(self, request):
         teachers = Teacher.objects.all()
-        serializer = TeacherMinimalSerializer(teachers, many=True)
+        first_name = request.query_params.get("first_name")
+        if first_name:
+            teacher = teacher.filter(first_name=first_name)
+        serializer = StudentMinimalSerializer(teacher, many=True)
         return Response(serializer.data)
+        
 
     def post(self, request):
         serializer = TeacherDetailSerializer(data=request.data)
@@ -114,8 +111,12 @@ class TeacherDetailView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class CourseListView(APIView):
+
     def get(self, request):
         courses = Course.objects.all()
+        course_name = request.query_params.get("course_name")
+        if course_name:
+            courses = courses.filter(course_name=course_name)
         serializer = CourseMinimalSerializer(courses, many=True)
         return Response(serializer.data)
 
@@ -147,8 +148,12 @@ class CourseDetailView(APIView):
 
 
 class ClasssListView(APIView):
+
     def get(self, request):
         classes = Classs.objects.all()
+        class_name = request.query_params.get("class_name")
+        if class_name:
+            classses = classses.filter(class_name=class_name)
         serializer = ClasssMinimalSerializer(classes, many=True)
         return Response(serializer.data)
 
@@ -160,6 +165,8 @@ class ClasssListView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ClasssDetailView(APIView):
+
+    
     def get(self, request, id):
         classs = Classs.objects.get(id=id)
         serializer = ClasssDetailSerializer(classs)
@@ -179,8 +186,13 @@ class ClasssDetailView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class Class_periodListView(APIView):
+
+
     def get(self, request):
         class_periods = Class_period.objects.all()
+        class_room = request.query_params.get("class_room")
+        if class_room:
+            class_rooms = class_rooms.filter(class_room=class_room)
         serializer = Class_periodMinimalSerializer(class_periods, many=True)
         return Response(serializer.data)
 

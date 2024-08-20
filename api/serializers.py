@@ -41,7 +41,7 @@ class ClasssMinimalSerializer(serializers.ModelSerializer):
    
    class Meta:
       model = Classs
-      fields = ["course","classroom", "class_time"]
+      fields = ["course","class_name", "class_time"]
 
 class ClasssDetailSerializer(serializers.ModelSerializer):
     class Meta:
@@ -61,7 +61,7 @@ class Class_periodMinimalSerializer(serializers.ModelSerializer):
    
    class Meta:
       model = Class_period
-      fields = ["course","classroom", "class_time"]
+      fields = ["subject","class_room", "teacher","start_time"]
 
 class Class_periodDetailSerializer(serializers.ModelSerializer):
     class Meta:
@@ -78,11 +78,11 @@ class CourseMinimalSerializer(serializers.ModelSerializer):
    
    school_direction = serializers.SerializerMethodField()
    def get_school_direction(self, Course):
-      return f"In {Course.location}, They teach {Course.course_name}"
+      return f"At {Course.school_name}, They teach {Course.course_name}"
    
    class Meta:
       model = Course
-      fields = ["instructor_id","school_direction","status"]
+      fields = ["instructor_id","school_name","course_instructor"]
 
 class CourseDetailSerializer(serializers.ModelSerializer):
     class Meta:
@@ -109,7 +109,7 @@ class TeacherMinimalSerializer(serializers.ModelSerializer):
    class Meta:
       model = Teacher
       
-      fields = ["id","full_name","age","email"]
+      fields = ["id","full_name","gender","email"]
 
 class TeacherDetailSerializer(serializers.ModelSerializer):
     class Meta:
