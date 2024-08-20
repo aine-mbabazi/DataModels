@@ -16,7 +16,6 @@ class StudentSerializer(serializers.ModelSerializer):
 class StudentMinimalSerializer(serializers.ModelSerializer):
    
    full_name = serializers.SerializerMethodField()
-   age = serializers.SerializerMethodField()
    def get_full_name(self, Student):
       return f"{Student.first_name} {Student.last_name}"
    
